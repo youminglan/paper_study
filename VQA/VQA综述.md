@@ -98,7 +98,7 @@
 
   **标签歧义**
 
-  ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180908212911.png)
+  ![img](https://cdn.jsdelivr.net/gh/youminglan/Picture@main/img/20210725163930.png)
 
     > 【图1】目标检测 和 语义分割
   - **语义分割**或**实例分割**都不足以全面理解整个场景；
@@ -129,6 +129,7 @@
   - DenseCap 全称为 Dense image captioning，它在一定程度上缓解了普适标题的问题；
   - DenseCap 会在图像的不同局部位置生成密集的注释；
     
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180908224213.png)
     
   - 即使如此，这些短描述也存在自动评价的问题；
@@ -176,7 +177,7 @@
     - 为了便于处理，较长的句子被分解成较小的块，但在许多情况下，该算法不能很好地处理句子中存在的从句和语法变化。
     - 这导致一些 Q 存在语法错误甚至无法读懂
   - 这个数据集另一个问题是，它**只有 4 种简单的问题**（因为这些问题是基于图像的标题生成的）；这些问题可能只需要捕捉到图像中的一些**局部信息**就能得出答案；
-  <!-- > 关于这一点缺陷，可以参考这篇论文中的解决办法：Making the V in VQA Matter: Elevating the Role of Image Understanding in Visual Question Answering -->
+    <!-- > 关于这一点缺陷，可以参考这篇论文中的解决办法：Making the V in VQA Matter: Elevating the Role of Image Understanding in Visual Question Answering -->
 
   ### VQA Dataset
   > 这里的主要指该数据集的 1.0 版本（2015），目前已经发布了 2.0 版本（2017）
@@ -197,17 +198,20 @@
   **COCO-VQA 的问题** 
   - 由于语言上的偏见，许多问题**无需使用图像**就能回答；
     
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180909132343.png)
     
     - Q: "What color are the trees?" —— A: "green."
     - 在数据集中，这个问题出现了 73 次，其中 70 个的答案都是 "green"
   - 存在许多主观问题，没有准确的答案；
     
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180909132723.png)
     
     - Q: "Would you like to fly in that?" —— A: "yes"(4), "No"(6)
   - 许多问题需要解释或冗长的描述，这类问题难以自动评价；
     
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180909133015.png)
     
     - Q: "Why would you say this woman is strong?" —— A: "yes"(5), can lift up on arms, headstand, handstand, can stand on her head, she is standing upside down on stool.
@@ -226,8 +230,9 @@
     - **free-form method**：可以针对图像提出任意问题；人类标注者通常会趋向于提出类似的问题。
     - **regionspecific method**：针对图像的指定区域提问；
       
+    
     ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180909161143.png)
-      
+    
       - Free form QA: What does the sky look like?
       - Region based QA: What color is the horse?
   - 答案多样性
@@ -242,6 +247,7 @@
     - ‘telling’ questions：答案是基于文本的
     - ‘pointing’ questions：以 Which 开头的问题，对于这些问题，算法必须在备选方案中选择正确的边界框。
       
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180909161708.png)
       
       - Q: Which object can you stab food with?
@@ -261,7 +267,7 @@
     - 匹配方法（多选择 VQA）
   - 如果是后者，可以使用常见的 PR（准确率、召回率） 指标来评估
   - 下面主要讨论的是对于生成方法的评估
-  -->
+    -->
   - 目前主要的评价方法可以参考如下几篇论文：[30], [32], [40]
   - 但这些方法或是针对特定的数据集，或是存在语义偏差，并不完美。
 
@@ -281,7 +287,7 @@
     - 由于语义树的限制，WUPS 的评价偏向于**词汇的相似**而非含义的相似
       - 比如，有关**对象属性**的问题，以**颜色**为例：WUPS 认为“白色”和“黑色”的分数为 0.91
     - 只能作用于“刚性语义概念”（rigid semantic concepts），基本都是单词会一些名词短语；无法应用于句子；
-  -->
+    -->
 
   # 主流模型与方法
 
@@ -300,6 +306,7 @@
   - **基于分类的基本框架**
     - **基于分类的 VQA 基本框架**
       
+    
     ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180910135921.png)
     
   - 不同做法的差异主要体现在**如何整合图像和文本的特征**
@@ -364,7 +371,7 @@
   > 相关论文： [63, 49, 52, 48, 54, 51, 46, 55]
   - 使用全局特征可能会模糊输入空间中与任务相关的区域；
   - VQA 中，使用**基于空间的 Attention 机制**来创建**特定区域**的 CNN 特征，而不像基线模型中那样直接使用全局特征。
-    
+
     > 因为问题一般比较短，所以很少有模型在 VQA 中将注意力纳入文本表征
   - Attention 背后的基本思想是，图像中的某些视觉区域和问题中的某些单词对于回答给定的问题比其他区域或单词更能提供更多的信息。
     
@@ -401,6 +408,7 @@
     - 只要相似度大于 0.5 则认为是相关的。
   - 问题和图像序列分别使用 LSTM 建模，得到特征后送入全连接层分类得到答案。
     
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180911163940.png)
     
     - 在最后一个时间步，模型还输入了图像的全局特征，用于访问全局以及局部特征。
@@ -412,6 +420,7 @@
   - 模型提取 VGG19 最后一个 Pooling 层的 feature map 作为区域特征，其大小为 `14*14*512`。
   - 相当于把原始 `448*448` 的图像均匀划分为 `14*14` 个网格（grid），每个网格使用一个 `512` 维的向量表示其特征。
     
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM%E6%88%AA%E5%9B%BE20180911174700.png)
     
   - **Attention 层**
@@ -424,7 +433,7 @@
     > 其中 `vI: [14*14,512]` 为图像特征，`vQ: [512]` 为问题特征；最后 `pI: [14*14]` 即问题在每个网格处的关注度
     
     <details><summary><b>Tensorflow 代码（点击展开）</b></summary>
-      
+    
       ```python
       # m = 14*14, d = 512, k = 
       v_I  # [N, d, m]
@@ -440,7 +449,7 @@
     > `k`: 隐藏单元的数量，本文为 1024
     
     </details>
-      
+    
   - 在得到每个网格与问题的相关度后，对所有网格进行加权求和，从而得到整个图像加权后的全局特征；
     - 整合图像特征与问题特征后进行分类（本文采用整合方法为按位求和）
     
@@ -453,7 +462,7 @@
     ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180911222910.png)
     
     - 本文使用多个 Attention 层迭代上述过程
-      
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/公式_20180911225643.png)
       
       > 本文取 `K=2`
@@ -492,7 +501,7 @@
     - **parallel co-attention** 同时关注问题和图像；
     - **alternative co-attention** 同时在关注问题或图像间交替进行；
   - 最终的答案通过由低到高依次融合三个层级的特征来预测。
-      
+    
       ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180912210803.png)
 
   #### [56] Dual attention networks for multimodal reasoning and matching
@@ -502,6 +511,7 @@
   - 为了实现这一点，本文先将图像特征和问题特征整合为**记忆向量**（按位乘），然后利用该记忆向量**分别**对问题和图像构建 Attention 向量。
   - 该过程可以递归的进行，下一轮的输入为上一轮得到两个 Attention 向量；
     
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180912212748.png)
     
     > 但是作者建议迭代 2 次即可。
@@ -520,6 +530,7 @@
   - 文本计算 Attention 的做法类似 [[49]](#49-stacked-attention-networks-for-image-question-answeringsan)，区别在于使用 **MCB 操作**代替**双线性 Attention**
     > 双线性 Attention，即 `Q·W·V`——使用一个权重矩阵 `W` 作为两个向量 `Q` 和 `V` 的交互中介。
     
+
   ![img](https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese/raw/master/_assets/TIM截图20180912230713.png)
     
   - 本文模型是 2016 VQA 比赛的获胜模型
